@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="Opera">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Education news</title>
+    
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/dataTables.bootstrap.css" rel="stylesheet">
+	<style>
+	input[type=text] {
+		width: 135px;
+		box-sizing: border-box;
+		border: 2px solid #ccc;
+		border-radius: 4px;
+		font-size: 16px;
+		background-color: white;
+		background-position: 10px 10px; 
+		background-repeat: no-repeat;
+		padding: 12px 20px 12px 40px;
+		-webkit-transition: width 0.4s ease-in-out;
+		transition: width 0.4s ease-in-out;
+	}
+
+	input[type=text]:focus {
+		width: 100%;
+	}
+	.jumbotron{
+	background-color:#2E2D88;
+	color:white;
+	}
+	.container1{
+	position:fixed;
+    right:0;
+	}
+	#table-container{
+	padding:20px;
+	}
+	</style>
+  </head>
+
+  <body>
+	<div class="jumbotron" align = "center">
+
+      <h1>Education news</h1>
+	 </div>
+    <div class="container"> 
+	<h3> Copy the link and paste it in the text box on the right to view full article</h3>
+	</div>
+	<div class= "container1">
+		<form>
+			<input type="text" id="search" placeholder="Paste link">
+			<button type="submit" class="btn btn-primary btn-sm" id="getlink">Go</button>
+			<!--<button type = "submit" class= "btn btn-primary btn-sm" onclick="search()">Go</button>-->
+		</form>	
+    </div>
+	<div id='table-container' ></div>
+    </div><!-- /.container -->
+
+    
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery.csv.min.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="js/dataTables.bootstrap.js"></script>
+    <script type="text/javascript" src="js/csv_to_html_table.js"></script>
+
+
+    <script type="text/javascript">
+	 $('#getlink').on('click', function () {
+		var searchInput = $('#search').val();
+		var url = searchInput;
+		window.open(url);
+		});
+      function format_link(link){
+        if (link)
+          return "<a href='" + link + "' target='_blank'>" + link + "</a>";
+        else
+          return "";
+      }
+
+      CsvToHtmlTable.init({
+        csv_path: 'website.csv',
+        element: 'table-container', 
+        allow_download: true,
+        csv_options: {separator: ',', delimiter: '"'},
+        datatables_options: {"paging": false},
+        custom_formatting: [[4, format_link]]
+      });
+    </script>
+  </body>
+</html>
